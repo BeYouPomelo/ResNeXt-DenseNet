@@ -1,6 +1,6 @@
 from __future__ import division
 
-import os, sys, pdb, shutil, time, random
+import os, sys, pdb, shutil, time, random, copy
 import argparse
 import torch
 import torch.backends.cudnn as cudnn
@@ -134,7 +134,7 @@ def main():
       optimizer.load_state_dict(checkpoint['optimizer'])
       print_log("=> loaded checkpoint '{}' (epoch {})" .format(args.resume, checkpoint['epoch']), log)
     else:
-      print_log("=> no checkpoint found at '{}'".format(args.resume), log)
+      raise ValueError("=> no checkpoint found at '{}'".format(args.resume))
   else:
     print_log("=> do not use any checkpoint for {} model".format(args.arch), log)
 
@@ -168,6 +168,7 @@ def main():
       'state_dict': net.state_dict(),
       'recorder': recorder,
       'optimizer' : optimizer.state_dict(),
+      'args'      : copy.deepcopy(args),
     }, is_best, args.save_path, 'checkpoint.pth.tar')
 
     # measure elapsed time

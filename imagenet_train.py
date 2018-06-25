@@ -1,6 +1,6 @@
 # https://github.com/pytorch/vision/blob/master/torchvision/models/__init__.py
 import argparse
-import os
+import os, copy
 import shutil
 import time
 
@@ -80,7 +80,7 @@ def main():
       optimizer.load_state_dict(checkpoint['optimizer'])
       print_log("=> loaded checkpoint '{}' (epoch {})".format(args.resume, checkpoint['epoch']), log)
     else:
-      print_log("=> no checkpoint found at '{}'".format(args.resume), log)
+      raise ValueError("=> no checkpoint found at '{}'".format(args.resume))
 
   cudnn.benchmark = True
 
@@ -144,6 +144,7 @@ def main():
       'state_dict': model.state_dict(),
       'best_prec1': best_prec1,
       'optimizer' : optimizer.state_dict(),
+      'args'      : copy.deepcopy(args),
     }, is_best, filename, bestname)
     # measure elapsed time
     epoch_time.update(time.time() - start_time)
