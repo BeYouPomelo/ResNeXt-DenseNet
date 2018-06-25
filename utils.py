@@ -1,4 +1,4 @@
-import os, sys, time
+import os, sys, time, random
 import numpy as np
 import matplotlib
 matplotlib.use('agg')

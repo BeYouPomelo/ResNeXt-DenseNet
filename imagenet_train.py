@@ -123,11 +123,11 @@ def main():
   start_time = time.time()
   epoch_time = AverageMeter()
   for epoch in range(args.start_epoch, args.epochs):
-    adjust_learning_rate(optimizer, epoch)
+    lr = adjust_learning_rate(optimizer, epoch)
 
     need_hour, need_mins, need_secs = convert_secs2time(epoch_time.val * (args.epochs-epoch))
     need_time = '[Need: {:02d}:{:02d}:{:02d}]'.format(need_hour, need_mins, need_secs)
-    print_log(' [{:s}] :: {:3d}/{:3d} ----- [{:s}] {:s}'.format(args.arch, epoch, args.epochs, time_string(), need_time), log)
+    print_log(' [{:s}] :: {:3d}/{:3d} ----- [{:s}] {:s} LR={:}'.format(args.arch, epoch, args.epochs, time_string(), need_time, lr), log)
 
     # train for one epoch
     train(train_loader, model, criterion, optimizer, epoch, log)
@@ -273,6 +273,7 @@ def adjust_learning_rate(optimizer, epoch):
   lr = args.lr * (0.1 ** (epoch // 30))
   for param_group in optimizer.param_groups:
     param_group['lr'] = lr
+  return lr
 
 
 def accuracy(output, target, topk=(1,)):
