@@ -21,3 +21,4 @@ from .densenet import densenet100_12
 from .resnet_mod import resnet_mod20, resnet_mod32, resnet_mod44, resnet_mod56, resnet_mod110
 
 from .imagenet_resnet import resnet18, resnet34, resnet50, resnet101, resnet152
+from .ResNet_GN import resnet18_gn, resnet34_gn, resnet50_gn, resnet101_gn, resnet152_gn
