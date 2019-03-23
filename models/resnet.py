@@ -102,6 +102,14 @@ class CifarResNet(nn.Module):
     x = self.avgpool(x)
     x = x.view(x.size(0), -1)
     return self.classifier(x)
+  
+def resnet08(num_classes=10):
+  """Constructs a ResNet-08 model for CIFAR-10 (by default)
+  Args:
+    num_classes (uint): number of classes
+  """
+  model = CifarResNet(ResNetBasicblock, 08, num_classes)
+  return model
 
 def resnet20(num_classes=10):
   """Constructs a ResNet-20 model for CIFAR-10 (by default)
