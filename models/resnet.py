@@ -108,7 +108,7 @@ def resnet08(num_classes=10):
   Args:
     num_classes (uint): number of classes
   """
-  model = CifarResNet(ResNetBasicblock, 08, num_classes)
+  model = CifarResNet(ResNetBasicblock,  8, num_classes)
   return model
 
 def resnet20(num_classes=10):
